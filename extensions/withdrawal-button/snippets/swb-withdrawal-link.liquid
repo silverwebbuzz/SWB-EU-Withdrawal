@@ -1,0 +1,29 @@
+{%- comment -%}
+  Renders the withdrawal link/button.
+  Accepts: label, help_text, bg, fg, align, variant ("button" | "link"), extra_class
+  Defaults come from the app settings (app-owned metafield swb.button), so the
+  merchant can manage the label and colours in the app admin.
+{%- endcomment -%}
+{%- assign cfg = app.metafields.swb.button.value -%}
+{%- assign final_label = label | default: cfg.label | default: 'Withdraw from contract' -%}
+{%- assign final_help = help_text | default: cfg.help_text -%}
+{%- assign final_bg = bg | default: cfg.bg | default: '#1a1a1a' -%}
+{%- assign final_fg = fg | default: cfg.fg | default: '#ffffff' -%}
+{%- if routes.root_url == '/' -%}
+  {%- assign withdraw_url = '/apps/withdraw' -%}
+{%- else -%}
+  {%- assign withdraw_url = routes.root_url | append: '/apps/withdraw' -%}
+{%- endif -%}
+{%- assign withdraw_url = withdraw_url | append: '?lang=' | append: request.locale.iso_code -%}
+<div class="swb-entry swb-entry--{{ align | default: 'left' }} {{ extra_class }}">
+  <a
+    href="{{ withdraw_url }}"
+    class="swb-entry__{{ variant | default: 'button' }}"
+    style="--swb-bg: {{ final_bg }}; --swb-fg: {{ final_fg }};"
+  >
+    {{- final_label | escape -}}
+  </a>
+  {%- if final_help != blank -%}
+    <p class="swb-entry__help">{{ final_help | escape }}</p>
+  {%- endif -%}
+</div>

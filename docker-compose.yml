@@ -1,0 +1,22 @@
+# Local development database only. Production should use a managed MySQL 8 instance.
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: swb_root_dev_password
+      MYSQL_USER: swb
+      MYSQL_PASSWORD: swb_dev_password
+      MYSQL_DATABASE: swb_withdrawal
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - ./scripts/mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -pswb_root_dev_password --silent"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  mysqldata:

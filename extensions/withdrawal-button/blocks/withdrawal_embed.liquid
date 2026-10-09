@@ -1,0 +1,54 @@
+{%- comment -%}
+  App embed: a floating withdrawal button on every page. Enable it in
+  Theme editor > App embeds. No theme code is modified.
+{%- endcomment -%}
+{%- assign eu_countries = 'AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,IS,LI,NO' | split: ',' -%}
+{%- assign show = true -%}
+{%- if block.settings.eu_only and eu_countries contains localization.country.iso_code -%}
+  {%- assign show = true -%}
+{%- elsif block.settings.eu_only -%}
+  {%- assign show = false -%}
+{%- endif -%}
+{%- if request.path contains '/apps/withdraw' -%}
+  {%- assign show = false -%}
+{%- endif -%}
+
+{%- if show -%}
+  {%- render 'swb-withdrawal-link',
+    label: block.settings.label,
+    bg: block.settings.bg,
+    fg: block.settings.fg,
+    variant: 'button',
+    extra_class: block.settings.position
+  -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Floating withdrawal button",
+  "target": "body",
+  "stylesheet": "withdrawal.css",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "info": "Empty = label from the app's Settings page." },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position",
+      "options": [
+        { "value": "swb-float swb-float--bottom-left", "label": "Bottom left" },
+        { "value": "swb-float swb-float--bottom-right", "label": "Bottom right" }
+      ],
+      "default": "swb-float swb-float--bottom-left"
+    },
+    { "type": "color", "id": "bg", "label": "Button color" },
+    { "type": "color", "id": "fg", "label": "Text color" },
+    {
+      "type": "checkbox",
+      "id": "eu_only",
+      "label": "Only show for EU/EEA countries",
+      "info": "Uses the visitor's selected country/market (localization.country), not IP geolocation.",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

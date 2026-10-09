@@ -1,0 +1,50 @@
+# Shopify app configuration. Run `npm run config:link` to link this project to
+# your app in the Partner Dashboard / Dev Dashboard; that fills in client_id,
+# name and application_url.
+client_id = ""
+name = "SWB EU Withdrawal"
+application_url = "https://example.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+include_config_on_deploy = true
+
+[access_scopes]
+# Least privilege: nothing is required at install time.
+# read_orders  -> optional order verification on the withdrawal form
+# write_orders -> optional order tagging (tagsAdd)
+# Both are requested at runtime from the Settings page only when enabled.
+scopes = ""
+optional_scopes = ["read_orders", "write_orders"]
+
+[auth]
+redirect_urls = ["https://example.com/auth/callback"]
+
+[webhooks]
+api_version = "2026-10"
+
+  # Handled by: /app/routes/webhooks.app.uninstalled.tsx
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/app/uninstalled"
+  topics = ["app/uninstalled"]
+
+  # Handled by: /app/routes/webhooks.app.scopes_update.tsx
+  [[webhooks.subscriptions]]
+  topics = ["app/scopes_update"]
+  uri = "/webhooks/app/scopes_update"
+
+  # Mandatory compliance topics. Handled by: /app/routes/webhooks.compliance.tsx
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/compliance"
+  compliance_topics = ["customers/data_request", "customers/redact", "shop/redact"]
+
+# Storefront entry point: https://{shop}/apps/withdraw -> {app}/proxy
+# The CLI rewrites the host during `shopify app dev`.
+[app_proxy]
+url = "https://example.com/proxy"
+subpath = "withdraw"
+prefix = "apps"
+
+[pos]
+embedded = false

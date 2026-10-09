@@ -1,0 +1,70 @@
+{%- comment -%}
+  App block: place the withdrawal button in any section that supports app
+  blocks (for example the footer, a contact page or an "Apps" section).
+{%- endcomment -%}
+{%- assign eu_countries = 'AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,IS,LI,NO' | split: ',' -%}
+{%- assign show = true -%}
+{%- if block.settings.eu_only and eu_countries contains localization.country.iso_code -%}
+  {%- assign show = true -%}
+{%- elsif block.settings.eu_only -%}
+  {%- assign show = false -%}
+{%- endif -%}
+
+{%- if show -%}
+  <div {{ block.shopify_attributes }}>
+    {%- render 'swb-withdrawal-link',
+      label: block.settings.label,
+      help_text: block.settings.help_text,
+      bg: block.settings.bg,
+      fg: block.settings.fg,
+      align: block.settings.align,
+      variant: block.settings.variant
+    -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Withdrawal button",
+  "target": "section",
+  "stylesheet": "withdrawal.css",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Links to the withdrawal form at /apps/withdraw. Leave fields empty to use the defaults from the app's Settings page."
+    },
+    { "type": "text", "id": "label", "label": "Label" },
+    { "type": "textarea", "id": "help_text", "label": "Explanatory text (optional)" },
+    {
+      "type": "select",
+      "id": "variant",
+      "label": "Style",
+      "options": [
+        { "value": "button", "label": "Button" },
+        { "value": "link", "label": "Text link" }
+      ],
+      "default": "button"
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    { "type": "color", "id": "bg", "label": "Button color" },
+    { "type": "color", "id": "fg", "label": "Text color" },
+    {
+      "type": "checkbox",
+      "id": "eu_only",
+      "label": "Only show for EU/EEA countries",
+      "info": "Uses the visitor's selected country/market (localization.country), not IP geolocation.",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
