@@ -59,3 +59,21 @@ export function formatDateTime(instant: Date | string, timeZone: string, locale 
     timeStyle: "short",
   }).format(new Date(instant));
 }
+
+/** Numeric date (dd.mm.yyyy) and time (hh:mm) of `instant` in `timeZone`, for compact two-line display. */
+export function formatDateAndTime(instant: Date | string, timeZone: string): { date: string; time: string } {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-GB", {
+      timeZone,
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+    })
+      .formatToParts(new Date(instant))
+      .map((p) => [p.type, p.value]),
+  );
+  return { date: `${parts.day}.${parts.month}.${parts.year}`, time: `${parts.hour}:${parts.minute}` };
+}

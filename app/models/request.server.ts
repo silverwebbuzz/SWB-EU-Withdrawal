@@ -79,6 +79,7 @@ const listSelect = {
   customerEmail: true,
   orderReference: true,
   orderVerification: true,
+  shopifyOrderId: true,
   status: true,
   submittedAt: true,
   archivedAt: true,

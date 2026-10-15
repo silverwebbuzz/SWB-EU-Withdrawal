@@ -9,6 +9,7 @@ export interface RequestRow {
   customerEmail: string;
   orderReference: string | null;
   orderVerification: "VERIFIED" | "UNVERIFIED" | "NOT_FOUND";
+  shopifyOrderId?: string | null;
   status: RequestStatusValue;
   submittedAt: string | Date;
   archivedAt: string | Date | null;

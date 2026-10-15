@@ -1,14 +1,13 @@
 # Shopify app configuration. Run `npm run config:link` to link this project to
 # your app in the Partner Dashboard / Dev Dashboard; that fills in client_id,
 # name and application_url.
-client_id = ""
+client_id = "53f5f9c6ec2ed731475205fe5af2bffd"
 name = "SWB EU Withdrawal"
-application_url = "https://example.com"
+application_url = "https://eubutton.silverwebbuzz.com"
 embedded = true
 
 [build]
 automatically_update_urls_on_dev = true
-include_config_on_deploy = true
 
 [access_scopes]
 # Least privilege: nothing is required at install time.
@@ -19,7 +18,7 @@ scopes = ""
 optional_scopes = ["read_orders", "write_orders"]
 
 [auth]
-redirect_urls = ["https://example.com/auth/callback"]
+redirect_urls = ["https://eubutton.silverwebbuzz.com/auth/callback"]
 
 [webhooks]
 api_version = "2026-10"
@@ -42,7 +41,7 @@ api_version = "2026-10"
 # Storefront entry point: https://{shop}/apps/withdraw -> {app}/proxy
 # The CLI rewrites the host during `shopify app dev`.
 [app_proxy]
-url = "https://example.com/proxy"
+url = "https://eubutton.silverwebbuzz.com/proxy"
 subpath = "withdraw"
 prefix = "apps"
 

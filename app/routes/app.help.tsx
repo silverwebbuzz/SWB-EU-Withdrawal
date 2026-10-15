@@ -83,7 +83,7 @@ export default function Help() {
         <s-ordered-list>
           <s-list-item>
             <s-text type="strong">Floating button (app embed):</s-text> Theme editor → App embeds → turn on
-            &quot;Floating withdrawal button&quot; → Save.{" "}
+            &quot;Floating withdraw button&quot; → Save.{" "}
             <s-link href={embedLink} target="_blank">
               Open theme editor
             </s-link>

@@ -25,7 +25,7 @@ export const STATUS_LABELS: Record<RequestStatusValue | "ARCHIVED", string> = {
 export type BadgeTone = "info" | "warning" | "success" | "critical" | "neutral" | "caution";
 
 export const STATUS_TONES: Record<RequestStatusValue | "ARCHIVED", BadgeTone> = {
-  REQUESTED: "info",
+  REQUESTED: "warning",
   IN_REVIEW: "caution",
   APPROVED: "success",
   REJECTED: "critical",

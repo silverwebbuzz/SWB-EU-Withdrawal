@@ -113,7 +113,7 @@ Declared in `shopify.app.toml` (API version `2026-10`):
 
 - **App block "Withdrawal button"**: add it to any section (footer, contact page, …). Settings: label, text, style,
   alignment, colors, "only show for EU/EEA countries".
-- **App embed "Floating withdrawal button"**: shown on every page, bottom-left or bottom-right.
+- **App embed "Floating withdraw button"**: shown on every page, bottom-left or bottom-right.
 
 Empty block settings fall back to the defaults from the app's Settings page, which are stored in the app-owned metafield
 `app.metafields.swb.button`. The EU-only option uses the visitor's selected country/market (`localization.country`),
